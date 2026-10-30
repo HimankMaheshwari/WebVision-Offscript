@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as CompareRouteImport } from './routes/compare'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DocumentCheckerRouteImport } from './routes/document-checker'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as TrackerRouteImport } from './routes/tracker'
@@ -24,6 +26,16 @@ const IndexRoute = IndexRouteImport.update({
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentCheckerRoute = DocumentCheckerRouteImport.update({
@@ -50,6 +62,8 @@ const VisaFinderRoute = VisaFinderRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/apply': typeof ApplyRoute
+  '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/document-checker': typeof DocumentCheckerRoute
   '/faq': typeof FaqRoute
   '/tracker': typeof TrackerRoute
@@ -58,6 +72,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/apply': typeof ApplyRoute
+  '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/document-checker': typeof DocumentCheckerRoute
   '/faq': typeof FaqRoute
   '/tracker': typeof TrackerRoute
@@ -67,6 +83,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/apply': typeof ApplyRoute
+  '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/document-checker': typeof DocumentCheckerRoute
   '/faq': typeof FaqRoute
   '/tracker': typeof TrackerRoute
@@ -75,14 +93,30 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/apply' | '/document-checker' | '/faq' | '/tracker' | '/visa-finder'
+    | '/'
+    | '/apply'
+    | '/compare'
+    | '/dashboard'
+    | '/document-checker'
+    | '/faq'
+    | '/tracker'
+    | '/visa-finder'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/apply' | '/document-checker' | '/faq' | '/tracker' | '/visa-finder'
+    | '/'
+    | '/apply'
+    | '/compare'
+    | '/dashboard'
+    | '/document-checker'
+    | '/faq'
+    | '/tracker'
+    | '/visa-finder'
   id:
     | '__root__'
     | '/'
     | '/apply'
+    | '/compare'
+    | '/dashboard'
     | '/document-checker'
     | '/faq'
     | '/tracker'
@@ -92,6 +126,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApplyRoute: typeof ApplyRoute
+  CompareRoute: typeof CompareRoute
+  DashboardRoute: typeof DashboardRoute
   DocumentCheckerRoute: typeof DocumentCheckerRoute
   FaqRoute: typeof FaqRoute
   TrackerRoute: typeof TrackerRoute
@@ -112,6 +148,20 @@ declare module '@tanstack/react-router' {
       path: '/apply'
       fullPath: '/apply'
       preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/document-checker': {
@@ -148,6 +198,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApplyRoute: ApplyRoute,
+  CompareRoute: CompareRoute,
+  DashboardRoute: DashboardRoute,
   DocumentCheckerRoute: DocumentCheckerRoute,
   FaqRoute: FaqRoute,
   TrackerRoute: TrackerRoute,
